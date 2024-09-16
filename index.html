@@ -4,20 +4,45 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="../src/assets/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Asset Tokenization Studio</title>
+    <title>Asset Tokenization Studio2</title>
     <script type="module" crossorigin src="/assets/index-2ac6ada6.js"></script>
     <link rel="stylesheet" href="/assets/index-a990e509.css">
+    <style>
+      /* Popup style for success and error messages */
+      .popup {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #28a745;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        z-index: 1000;
+        font-size: 16px;
+      }
+      .popup.error {
+        background-color: #dc3545;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Popup message div -->
+    <div id="popup" class="popup"></div>
+
     <script>
       document.addEventListener("DOMContentLoaded", function() {
-        // Select the form - You may need to refine the selector based on actual HTML structure
+        // Select the form
         const form = document.querySelector('form'); // If there are multiple forms, use a more specific selector
       
         if (form) {
           form.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
+
+            // Show loading message
+            showPopup("Submitting form...", "loading");
       
             // Capture form data
             const firstName = document.querySelector('input[name="firstname"]').value;
@@ -48,18 +73,44 @@
             })
             .then(response => {
               if (response.ok) {
-                // Handle success
-                alert('Form successfully submitted to HubSpot');
+                // Show success popup
+                showPopup('Form successfully submitted to HubSpot!', 'success');
               } else {
-                // Handle error
-                alert('There was an error submitting the form to HubSpot');
+                // Show error popup
+                showPopup('There was an error submitting the form to HubSpot', 'error');
               }
             })
-            .catch(error => console.error('Error submitting form:', error));
+            .catch(error => {
+              console.error('Error submitting form:', error);
+              // Show error popup
+              showPopup('Error submitting form: ' + error.message, 'error');
+            });
           });
         }
+
+        // Function to show popup notifications
+        function showPopup(message, type) {
+          const popup = document.getElementById("popup");
+          popup.textContent = message;
+          popup.classList.remove("loading", "success", "error");
+          
+          // Add class based on type
+          if (type === "success") {
+            popup.classList.add("success");
+          } else if (type === "error") {
+            popup.classList.add("error");
+          } else {
+            popup.classList.add("loading");
+          }
+          
+          popup.style.display = "block";
+
+          // Hide popup after 4 seconds
+          setTimeout(() => {
+            popup.style.display = "none";
+          }, 4000);
+        }
       });
-      </script>
-      
+    </script>
   </body>
 </html>
