@@ -10,56 +10,6 @@
   </head>
   <body>
     <div id="root"></div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        // Select the form - You may need to refine the selector based on actual HTML structure
-        const form = document.querySelector('form'); // If there are multiple forms, use a more specific selector
-      
-        if (form) {
-          form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
-      
-            // Capture form data
-            const firstName = document.querySelector('input[name="firstname"]').value;
-            const lastName = document.querySelector('input[name="lastname"]').value;
-            const email = document.querySelector('input[name="email"]').value;
-      
-            // HubSpot API credentials
-            const portalId = '20830880';  // Your HubSpot Portal ID
-            const formId = 'e894c0ab-25ea-4d4e-89bd-811d79a184e2'; // Your HubSpot Form ID
-            const url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
-      
-            // Prepare the data to send to HubSpot
-            const hubspotData = {
-              fields: [
-                { name: "firstname", value: firstName },
-                { name: "lastname", value: lastName },
-                { name: "email", value: email },
-              ]
-            };
-      
-            // Submit the form data to HubSpot
-            fetch(url, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(hubspotData),
-            })
-            .then(response => {
-              if (response.ok) {
-                // Handle success
-                alert('Form successfully submitted to HubSpot');
-              } else {
-                // Handle error
-                alert('There was an error submitting the form to HubSpot');
-              }
-            })
-            .catch(error => console.error('Error submitting form:', error));
-          });
-        }
-      });
-      </script>
-      
+    
   </body>
 </html>
