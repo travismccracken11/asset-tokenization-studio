@@ -10,6 +10,22 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // Select the form using the unique class you provided
+        const form = document.querySelector('.chakra-stack.css-1811skr');
+        
+        // Check if the form exists before adding attributes
+        if (form) {
+          // Dynamically add the 'name' and 'netlify' attributes to the form
+          form.setAttribute('name', 'contactAssetToken');  // Change name to "contactAssetToken"
+          form.setAttribute('netlify', '');                // Add netlify attribute without a value
+          console.log('Netlify attributes added successfully!');
+        } else {
+          console.error('Form not found on the page.');
+        }
+      });
+    </script>
     
   </body>
 </html>
