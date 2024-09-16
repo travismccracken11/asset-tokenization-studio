@@ -4,92 +4,12 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="../src/assets/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Asset Tokenization Studio2</title>
+    <title>Asset Tokenization Studio</title>
     <script type="module" crossorigin src="/assets/index-2ac6ada6.js"></script>
     <link rel="stylesheet" href="/assets/index-a990e509.css">
-    <style>
-      /* Popup style for success and error messages */
-      .popup {
-        display: none;
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #28a745;
-        color: white;
-        padding: 15px;
-        border-radius: 5px;
-        z-index: 1000;
-        font-size: 16px;
-      }
-      .popup.error {
-        background-color: #dc3545;
-      }
-    </style>
   </head>
   <body>
     <div id="root"></div>
-
-    <!-- Popup message div -->
-    <div id="popup" class="popup"></div>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        // Locate the form by looking for the form element
-        const form = document.querySelector('form');
-    
-        if (form) {
-          console.log("Form found, ready to capture data.");
-    
-          // Add a submit event listener to intercept form submissions
-          form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
-    
-            // Capture form data
-            const firstName = document.querySelector('input[name="firstname"]').value;
-            const lastName = document.querySelector('input[name="lastname"]').value;
-            const email = document.querySelector('input[name="email"]').value;
-    
-            // Log captured data for debugging
-            console.log(`First Name: ${firstName}, Last Name: ${lastName}, Email: ${email}`);
-    
-            // Prepare data for HubSpot
-            const hubspotData = {
-              fields: [
-                { name: "firstname", value: firstName },
-                { name: "lastname", value: lastName },
-                { name: "email", value: email }
-              ]
-            };
-    
-            // Send the form data to HubSpot using the Forms API
-            const url = `https://api.hsforms.com/submissions/v3/integration/submit/20830880/e894c0ab-25ea-4d4e-89bd-811d79a184e2`;
-    
-            fetch(url, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(hubspotData),
-            })
-            .then(response => {
-              if (response.ok) {
-                console.log('Form successfully submitted to HubSpot');
-                alert('Form successfully submitted to HubSpot');
-              } else {
-                console.error('Failed to submit form:', response.statusText);
-                alert('There was an error submitting the form');
-              }
-            })
-            .catch(error => {
-              console.error('Error submitting form:', error);
-              alert('An error occurred during form submission');
-            });
-          });
-        } else {
-          console.error("Form not found in the DOM.");
-        }
-      });
-    </script>
     
   </body>
 </html>
