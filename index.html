@@ -12,20 +12,29 @@
     <div id="root"></div>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
-        // Select the form using the unique class you provided
-        const form = document.querySelector('.chakra-stack.css-1811skr');
-        
-        // Check if the form exists before adding attributes
-        if (form) {
-          // Dynamically add the 'name' and 'netlify' attributes to the form
-          form.setAttribute('name', 'contactAssetToken');  // Change name to "contactAssetToken"
-          form.setAttribute('netlify', '');                // Add netlify attribute without a value
-          console.log('Netlify attributes added successfully!');
-        } else {
-          console.error('Form not found on the page.');
-        }
+        // Create a MutationObserver to watch for changes in the DOM
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            // Try to find the form when changes occur in the DOM
+            const form = document.querySelector('.chakra-stack.css-1811skr');
+            
+            // Check if the form exists before adding attributes
+            if (form) {
+              form.setAttribute('name', 'contactAssetToken');  // Add name="contactAssetToken"
+              form.setAttribute('netlify', '');                // Add netlify attribute without a value
+              console.log('Netlify form attributes added successfully!');
+              
+              // Stop observing once the form is found
+              observer.disconnect();
+            }
+          });
+        });
+    
+        // Start observing the document body for changes
+        observer.observe(document.body, { childList: true, subtree: true });
       });
     </script>
+    
     
   </body>
 </html>
